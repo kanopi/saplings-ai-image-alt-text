@@ -32,6 +32,11 @@ config:
     ai_provider_openai.settings:
       simpleConfigUpdate:
         api_key: openai_provider
+    # Configure needed AI defaults.
+    ai.settings:
+      simpleConfigUpdate:
+        default_providers.chat_with_image_vision.provider_id: openai
+        default_providers.chat_with_image_vision.model_id: gpt-4o
     # Set permissions for content editor role.
     user.role.content_editor:
       createIfNotExists:
