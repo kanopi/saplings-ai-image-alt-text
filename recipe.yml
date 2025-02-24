@@ -1,0 +1,41 @@
+name: Saplings AI Image Alt Text
+type: Drupal CMS
+description: Installs and configures image alt text generation tools.
+install:
+  - ai
+  - ai_image_alt_text
+  - ai_provider_openai
+  - key
+config:
+  strict: false
+  import:
+    # Import the module's image style.
+    ai_image_alt_text: "*"
+  actions:
+    # Create the key entity if it does not exist.
+    key.key.openai_provider:
+      createIfNotExists:
+        langcode: en
+        status: true
+        id: openai_provider
+        label: 'OpenAI Provider'
+        description: 'OpenAI key created at https://platform.openai.com'
+        key_type: authentication
+        key_type_settings: {  }
+        key_provider: file
+        key_provider_settings:
+          file_location: 'private://keys/openai_provider.key'
+          strip_line_breaks: true
+        key_input: none
+        key_input_settings: {  }
+    # Configure the provider to use the key.
+    ai_provider_openai.settings:
+      simpleConfigUpdate:
+        api_key: openai_provider
+    # Set permissions for content editor role.
+    user.role.content_editor:
+      createIfNotExists:
+        id: content_editor
+      grantPermissions:
+        - 'batch fix ai images alt text'
+        - 'generate ai alt tags'
