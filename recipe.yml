@@ -1,5 +1,5 @@
 name: Saplings AI Image Alt Text
-type: Drupal CMS
+type: AI
 description: Installs and configures image alt text generation tools.
 install:
   - ai
